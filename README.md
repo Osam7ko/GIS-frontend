@@ -22,6 +22,9 @@ npm run serve
 Create a `.env` file:
 ```
 VUE_APP_API_KEY=your_mapbox_api_key
+VUE_APP_API_BASE=your_localhost
+VUE_APP_API_AUTH=your_auth
+VUE_APP_API_SERVER=server_for_api_call
 ```
 
 ## 📦 Build
