@@ -12,7 +12,7 @@ Vue.js application that provides an interactive GIS map using Leaflet and Mapbox
 ## 🚀 Run Locally
 ```bash
 npm install
-npm run dev
+npm run serve
 ```
 
 ### 🔐 Env
