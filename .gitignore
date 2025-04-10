@@ -1,6 +1,5 @@
 # Node modules (Vue frontend + Express backend)
 **/node_modules
-**/dist
 **/.env
 
 # System files
