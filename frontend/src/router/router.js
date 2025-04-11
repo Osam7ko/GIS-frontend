@@ -5,6 +5,7 @@ import MapV2View from "@/view/MapV2View.vue";
 import SignUp from "@/components/auth/SignUp.vue";
 import LoginPage from "@/components/auth/LoginPage.vue";
 import { getToken } from '@/services/authService';
+import Github from '@/view/GithubView.vue'
 
 const routes = [
     {
@@ -29,6 +30,11 @@ const routes = [
         meta: {
             requiresAuth: true,
         }
+    },
+    {
+        name: "GithubView",
+        component: Github,
+        path: "/github",
     },
     {
         name: "MapV2View",

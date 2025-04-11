@@ -10,7 +10,7 @@
             <router-link to="/">Home</router-link>
             <router-link to="/mapV1">Map</router-link>
             <router-link to="/mapV2">Map V2</router-link>
-            <a href="https://github.com/Osam7ko?tab=repositories">Github</a>
+            <router-link to="/github">Github</router-link>
         </nav>
 
         <div class="auth-buttons">
