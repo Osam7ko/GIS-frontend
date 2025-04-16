@@ -19,7 +19,18 @@
                 @input="search"
                 @focus="$emit('toggleSearchResults')"
                 />
+                <!-- Geo Location Floating Button -->
             </div>
+            <div
+                    class="geo-button-floating"
+                    @click="$emit('getGeoLocation')"
+                    :class="{ 'geo-button-active': coords }"
+                >
+                    <i
+                    class="fas fa-location-arrow geo-icon"
+                    :class="{ 'geo-icon-active': coords, 'geo-icon-pulse': fetchCoords }"
+                    ></i>
+                </div>
 
             <!-- Search Result -->
             <div >
@@ -45,17 +56,7 @@
             </div>
             
         </div>
-        <!-- Geo Location Floating Button -->
-        <div
-            class="geo-button-floating"
-            @click="$emit('getGeoLocation')"
-            :class="{ 'geo-button-active': coords }"
-        >
-            <i
-            class="fas fa-location-arrow geo-icon"
-            :class="{ 'geo-icon-active': coords, 'geo-icon-pulse': fetchCoords }"
-            ></i>
-        </div>
+        
 
         <!-- Save Favorite Button -->
         <div v-if="searchQuery && selectedResult ">
@@ -166,15 +167,20 @@ export default
 /* === Wrapper for search and geo === */
 .search-area {
   position: absolute;
-  max-width: 300px;
+  max-width: 350px;
+  max-height: 50px;
+  margin: 40px 0 0 10px;
+  gap: 10px;
+  display: flex;
+  flex-direction: row;
 }
 
 /* === Search Input === */
 .search-wrapper {
-  position: absolute;
-  margin: 40px 0 0 10px;
-  height: 40px;
-  width: 280px;
+  position: relative;
+  /* height: 40px;
+  width: 280px; */
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -187,8 +193,6 @@ export default
 }
 
 .search-input {
-    width: 100%;
-    font-size: 14px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     outline: none;
     padding: 33px;
@@ -210,12 +214,12 @@ export default
 
 /* === Geo Button (Floating over input) === */
 .geo-button-floating {
-  position: absolute;
-  margin-left: 300px;
+  position: relative;
+  /* margin-left: 300px;
   margin-top: 42px;
-  height: 36px;
-  width: 36px;
-  background-color: white;
+  height: 36px; */
+  width: 18%;
+  /* background-color: white; */
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -261,9 +265,11 @@ export default
 /* === Search Results === */
 .search-results {
     position: absolute;
-    margin: 90px 0 0 50px;
-    height: 300px;
-    width: 280px;
+    /* margin: 90px 0 0 50px; */
+    margin-top: 80px;
+    margin-bottom: 50px;
+    max-height: 300px;
+    max-width: 280px;
     display: flex;
     flex-direction: column;
     /* align-items: center;
@@ -337,6 +343,49 @@ export default
   padding-top: 10px;
   font-size: 14px;
   z-index: 9;
+}
+
+@media (max-width: 280px) {
+    .search-area {
+        width: 70%;
+        border-radius: 0;
+    }
+    .search-input{
+      width: 80%;
+    }
+    .search-results{
+      width: 60%;
+      height: 60%;
+    }
+}
+
+/* Mobile styles for screen widths up to 600px */
+@media (max-width: 600px) {
+  .search-area {
+    width: 90%;
+    height: 40px;
+    margin: 20px 0 0 5px;
+  }
+  .search-wrapper {
+    height: 35px;
+    padding: 0 10px;
+    border-radius: 8px;
+  }
+  .search-input {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+  .geo-button-floating {
+    width: 25%;
+    height: 30px;
+  }
+  .geo-icon {
+    font-size: 14px;
+  }
+  .search-results{
+      width: 60%;
+      height: 60%;
+    }
 }
 
 
