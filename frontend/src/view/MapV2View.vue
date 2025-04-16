@@ -6,11 +6,14 @@
     <!-- Map Container -->
     <div class="MapStyle2">
         <!-- Route Planner -->
-        <div class="planner">
-        <RoutePlanner
-            @routeSelected="drawRouteRef"
-            />
+        <div class="sub2">
+            <div class="planner">
+                <RoutePlanner
+                    @routeSelected="drawRouteRef"
+                    />
+            </div>
         </div>
+        
         <!-- Geo Error -->
         <GeoErrorModel @closeGeoError="closeGeoError"
         v-if="geoError" :geoErrorMsg="geoErrorMsg"/>
@@ -56,7 +59,7 @@ export default {
         GeoErrorModel,
         MapFeatures,
         LocationList,
-        RoutePlanner
+        RoutePlanner,
     },
     setup() {
         const map = ref(null);
@@ -114,7 +117,6 @@ export default {
 </script>
 
 <style>
-/* Map Styles */
 .MapStyle2 {
     display: flex;
     flex-direction: column;
@@ -174,8 +176,8 @@ h2 {
 
 .expand {
     position: absolute;
-    right: 12px;
-    top: -2px;
+    right: 19px;
+    top: 3px;
     border-radius: 8px;
     padding: 8px;
     z-index: 1100;
@@ -183,7 +185,7 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
     color: #2c3e50;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -193,8 +195,42 @@ h2 {
     background: #f1f1f1;
     transform: scale(1.05);
 }
-.planner{
-    position: absolute;
+
+.planner {
+    position: relative;
+    width: 100%;
+}
+
+.sub2 {
+    position: fixed;
+    /* bottom: 60px; increased bottom to avoid overlap with search results */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    max-width: 700px;
+    /* background: rgba(28, 28, 28, 0.5); */
+    padding: 2px 10px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    z-index: 1100;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .sub2 {
+        bottom: 50px; /* reduce bottom on mobile */
+        width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .sub2 {
+        bottom: 40px;
+        width: 100%;
+        display: flex; /* ensure visible */
+    }
 }
 
 .planner input,
@@ -225,19 +261,33 @@ h2 {
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .MapStyle2 {
-        max-width: 100%;
+        width: 95%;
         height: calc(100vh - 100px);
         border-radius: 0;
-        margin: 0;
+        background: none;
     }
     
     h2 {
         font-size: 1.2rem;
         margin: 0.5rem 0;
     }
+    .map-container2 {
+        height: 60vh;
+        min-height: 500px;
+        margin: 5px 0;
+    }
 }
 
-
-
-
+@media (max-width: 300px) {
+    .sub2 {
+        width: 100%;
+    }
+    .planner{
+        background-color: #2c3e50;
+    }
+}
+.leaflet-touch .leaflet-bar a:last-child{
+    width: 43px;
+    height: 43px;
+}
 </style>
