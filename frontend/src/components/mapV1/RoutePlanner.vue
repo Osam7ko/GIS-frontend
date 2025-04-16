@@ -1,4 +1,3 @@
-
 <template>
   <div class="route-container">
     <div class="input-group">
@@ -20,8 +19,6 @@
     </div>
 
     <button @click="findRoute">Find a road</button>
-    <!--  Toggle Instructions -->
-    <!-- <button @click="toggleInstructions">Toggle Instructions</button> -->
   </div>
 </template>
 
@@ -29,16 +26,13 @@
 import { ref, defineEmits, watch } from "vue";
 import axiosServer from "@/services/axiosServer.js";
 
-const startLocation = ref(""); // Start location input
-const endLocation = ref("");   // End location input
-const startSuggestions = ref([]); // Suggestions for start location
-const endSuggestions = ref([]);   // Suggestions for end location
-const emit = defineEmits(["routeSelected"]); // Emitting selected route
+const startLocation = ref("");
+const endLocation = ref("");
+const startSuggestions = ref([]);
+const endSuggestions = ref([]);
+const emit = defineEmits(["routeSelected"]);
 const queryTimeout = ref(null);
 
-
-
-//  Fetch autocomplete suggestions for start location
 const fetchStartSuggestions = async () => {
   if (startLocation.value.length < 3) {
     startSuggestions.value = [];
@@ -48,10 +42,7 @@ const fetchStartSuggestions = async () => {
   clearTimeout(queryTimeout.value);
   queryTimeout.value = setTimeout(async () => {
     try {
-      const response = await axiosServer.get(
-        `/nominatim/${startLocation.value}`
-      );
-
+      const response = await axiosServer.get(`/nominatim/${startLocation.value}`);
       startSuggestions.value = response.data.features.map((place) => ({
         name: place.text,
         lat: place.geometry.coordinates[1],
@@ -63,7 +54,6 @@ const fetchStartSuggestions = async () => {
   }, 750);
 };
 
-//  Fetch autocomplete suggestions for end location
 const fetchEndSuggestions = async () => {
   if (endLocation.value.length < 3) {
     endSuggestions.value = [];
@@ -73,10 +63,7 @@ const fetchEndSuggestions = async () => {
   clearTimeout(queryTimeout.value);
   queryTimeout.value = setTimeout(async () => {
     try {
-      const response = await axiosServer.get(
-        `/nominatim/${endLocation.value}`
-      );
-
+      const response = await axiosServer.get(`/nominatim/${endLocation.value}`);
       endSuggestions.value = response.data.features.map((place) => ({
         name: place.text,
         lat: place.geometry.coordinates[1],
@@ -88,42 +75,36 @@ const fetchEndSuggestions = async () => {
   }, 750);
 };
 
-//  Select start location from suggestions
 const selectStartLocation = (place) => {
   startLocation.value = place.name;
-  startSuggestions.value = []; // Hide suggestions after selection
+  startSuggestions.value = [];
 };
 
-//  Select end location from suggestions
 const selectEndLocation = (place) => {
   endLocation.value = place.name;
-  endSuggestions.value = []; // Hide suggestions after selection
+  endSuggestions.value = [];
 };
 
-//  Emit selected route when "Draw Route" button is clicked
 const findRoute = () => {
   if (!startLocation.value || !endLocation.value) return;
-
   emit("routeSelected", {
     start: startLocation.value,
     end: endLocation.value,
-    
   });
 };
 
-// Watch for changes in start and end location input fields
 watch(startLocation, fetchStartSuggestions);
 watch(endLocation, fetchEndSuggestions);
 </script>
-
-
 
 <style scoped>
 .input-group {
   position: relative;
   width: 220px;
+  width: 100%;
+  height: 100%;
 }
-.input-group input{
+.input-group input {
   background-color: white;
   font-size: 14px;
   padding-left: 10px;
@@ -131,22 +112,21 @@ watch(endLocation, fetchEndSuggestions);
 
 .route-container {
   margin-top: 10px;
-  position: absolute;
+  position: relative;
   display: flex;
-  margin-left: 600px;
   gap: 10px;
   justify-content: center;
   margin-bottom: 10px;
   z-index: 999;
+  max-width: 800px;
+  max-height: 300px;
 }
 .route-container button {
   background-color: #475569;
   color: white;
-  
+  width: 45%;
 }
 
-
-/*  Fix dropdown styling */
 .autocomplete-dropdown {
   position: absolute;
   top: 100%;
@@ -172,5 +152,17 @@ watch(endLocation, fetchEndSuggestions);
 .autocomplete-dropdown li:hover {
   background-color: #007bff;
   color: white;
+}
+@media (max-width: 768px) {
+  .route-container{
+    margin-top: 10px;
+    position: absolute;
+    display: flex;
+    margin-left: 600px;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 10px;
+    z-index: 999;
+  }
 }
 </style>
