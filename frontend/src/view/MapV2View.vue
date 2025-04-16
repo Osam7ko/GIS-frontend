@@ -220,16 +220,24 @@ h2 {
 /* Mobile adjustments */
 @media (max-width: 768px) {
     .sub2 {
-        bottom: 50px; /* reduce bottom on mobile */
-        width: 95%;
+        bottom: 40px; /* reduce bottom on mobile */
+        width: 80%;
+        margin: 0px 10% 0px 10%;
+    }
+    .expand{
+        font-size: 0.6rem;
     }
 }
 
 @media (max-width: 480px) {
     .sub2 {
         bottom: 40px;
-        width: 100%;
-        display: flex; /* ensure visible */
+        width: 80%;
+        /* display: flex; ensure visible */
+        margin: 0px 10% 0px 10%;
+    }
+    .expand{
+        font-size: 0.6rem;
     }
 }
 
