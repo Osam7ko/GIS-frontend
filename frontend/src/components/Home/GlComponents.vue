@@ -9,7 +9,7 @@ import { ref, onMounted } from 'vue'
 import mapboxgl from 'mapbox-gl'
 
 
-mapboxgl.accessToken = 'pk.eyJ1Ijoib3NhbWE5a2EiLCJhIjoiY204bTZpcGliMTl5azJqc2UzOTFnZmV4bCJ9.wCrx7Dn_S44odhnsF1OImA'
+mapboxgl.accessToken = 'YOUR_ACSSES_TOKEN'
 
 const mapContainer = ref(null)
 let userInteracting = false
@@ -70,6 +70,24 @@ onMounted(() => {
     top: 0;
     bottom: 0;
     width: 100%;
+}
+
+@media (max-width: 768px) {
+    .map-wrapper {
+        height: 60vh;
+    }
+    
+    /* Disable spinning animation on mobile */
+    .mapbox-map {
+        animation: none;
+    }
+}
+
+/* Additional mobile landscape optimization */
+@media (max-width: 768px) and (orientation: landscape) {
+    .map-wrapper {
+        height: 80vh;
+    }
 }
 
 </style>
