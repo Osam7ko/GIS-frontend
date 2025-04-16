@@ -7,13 +7,16 @@
         <SearchBar @locationFound="goToLocation" />
 
         <!-- Button Group -->
-        <div class="button-container">
-            <!--  Route Planner -->
-            <RoutePlanner @routeSelected="drawRoute" />
-            <!--  Locate User Button -->
-            <button class="location-btn" @click="locateUser">Locate Me</button>
+        <div class="sub">
+          <div class="button-container">
+              <!--  Route Planner -->
+              <RoutePlanner @routeSelected="drawRoute" />
+              
+          </div>
         </div>
         
+        <!--  Locate User Button -->
+        <button class="location-btn" @click="locateUser">Locate Me</button>
         <div id="map" class="map-container1"><div class="expand"><i class="fa-solid fa-expand"></i></div></div>
     </div>
 </template>
@@ -63,7 +66,7 @@ export default {
 .MapStyle1 {
     display: flex;
     flex-direction: column;
-    max-width: 95%;
+    width: 100%;
     height: calc(100vh - 120px);
     margin: 1rem auto;
     padding: 20px;
@@ -97,38 +100,69 @@ export default {
 
 /* Button Container */
 .button-container {
-  position: absolute;
-  top: 80px;
-  left: 20px;
+  position: relative;
+  /* top: 80px; */
+  /* left: 20px; */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 10px;
-  z-index: 999;
-  padding: 15px;
+  /* z-index: 999;
+  padding: 15px; */
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  /* height: 26%; */
+  /* box-shadow: 0 4px 12px rgba(0,0,0,0.1); */
+}
+.sub{
+  position: fixed;
+  /* bottom: 60px; increased bottom to avoid overlap with search results */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  width: 90%;
+  max-width: 560px;
+  /* background: rgba(28, 28, 28, 0.5); */
+  padding: 2px 10px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 1100;
+}
+
+/* Add margin-bottom to map container to avoid overlap with fixed sub */
+.map-container1 {
+  margin-bottom: 100px; /* added margin bottom */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .sub {
+    bottom: 50px; /* reduce bottom on mobile */
+    width: 95%;
+  }
+}
+
+@media (max-width: 480px) {
+  .sub {
+    bottom: 40px;
+    width: 100%;
+  }
 }
 
 /* Professional Button Styles */
 .location-btn {
-  padding: 12px 24px;
+  /* padding: 12px 24px;
   font-size: 16px;
   font-weight: 500;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  gap: 8px;
-  position: absolute;
-}
-
-.location-btn {
+  transition: all 0.2s ease; */
+  position: relative;
   background: linear-gradient(135deg, #28a745, #218838);
   color: white;
+  margin-top: 10px;
 }
-
-
 
 .location-btn:hover {
   transform: translateY(-2px);
@@ -149,24 +183,55 @@ export default {
 }
 
 /* Mobile Responsiveness */
+/* Enhanced mobile styles */
 @media (max-width: 768px) {
-  .map-container1 {
-    height: 60vh;
-    min-height: 400px;
+
+  .MapStyle1 {
+    padding: 5px;
+    margin: 0.5rem auto;
+    width: 98%;
   }
-  
+}
+@media (max-width: 300px) {
+  .sub{
+    
+  }
   .button-container {
-    flex-direction: column;
-    gap: 10px;
+    width: 80%;
   }
-  
-  .location-btn, .toggle-btn {
-    width: 100%;
-    justify-content: center;
+  .location-btn{
+    font-weight: 200px;
+    font-size: 20px;
   }
-  
+
   .title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
+    margin: 5px 0;
+  }
+
+  .leaflet-routing-container {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-height: 30vh !important;
+    border-radius: 0 !important;
+    z-index: 1000 !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container1 {
+    height: 55vh;
+    min-height: 250px;
+  }
+
+  .title {
+    font-size: 1.2rem;
+  }
+
+  .button-container {
+    flex-wrap: wrap;
   }
 }
 
