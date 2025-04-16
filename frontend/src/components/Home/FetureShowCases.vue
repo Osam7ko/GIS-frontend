@@ -7,15 +7,15 @@
             <p v-html="description"></p>
             <div class="imges" v-if="title === 'Map V1'">
                 <div>
-                    <img src="/leaflet.png" alt="leaflet logo" class="leaflet"/>
-                    <img src="/Nominatim.png" alt="Nominatim logo" />
+                    <img :src="assetUrls.leafletLogo" alt="leaflet logo" class="leaflet"/>
+                    <img :src="assetUrls.nominatimLogo" alt="Nominatim logo" />
                 </div>
             </div>
             <div class="imges" v-if="title === 'Map V2'">
                 <div>
-                    <img src="/leaflet.png" alt="leaflet logo" class="leaflet"/>
-                    <img src="/Nominatim.png" alt="Nominatim logo" />
-                    <img src="/Mapbox.png" alt="Nominatim logo" />
+                    <img :src="assetUrls.leafletLogo" alt="leaflet logo" class="leaflet"/>
+                    <img :src="assetUrls.nominatimLogo" alt="Nominatim logo" />
+                    <img :src="assetUrls.mapboxLogo" alt="Nominatim logo" />
                 </div>
             </div>
         </div>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { assetUrls } from "@/services/assetUrls";
 export default {
     props: {
         title: String,
@@ -73,6 +74,11 @@ export default {
         this.expandedImg = null;
         },
     },
+    setup() {
+        return{
+            assetUrls,
+        }
+    }
 };
 </script>
 
@@ -223,5 +229,33 @@ export default {
 .goto-link:hover {
     background: rgba(76, 201, 240, 0.2);
     transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .feature-container {
+        padding: 1rem;
+    }
+    .feature-text h3 {
+        font-size: 1.2rem;
+    }
+    .feature-text p {
+        font-size: 0.9rem;
+    }
+    .feature-carousel {
+        flex-direction: column;
+        align-items: center;
+    }
+    .card {
+        width: 100%;
+        height: auto;
+    }
+    .img-modal {
+        padding: 1rem;
+    }
+    .modal-content {
+        max-width: 90vw;
+        max-height: 90vh;
+    }
+    
 }
 </style>
