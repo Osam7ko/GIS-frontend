@@ -11,8 +11,8 @@
           Explore powerful mapping features with intuitive interface
         </p>
         <div class="cta-buttons">
-          <router-link to="/map" class="btn btn-primary">Try Map V1</router-link>
-          <router-link to="/mapV2" class="btn btn-secondary">Try Map V2</router-link>
+          <!-- <router-link to="/mapv1" class="btn btn-primary">Try Map V1</router-link> -->
+          <router-link to="/mapv2" class="btn btn-secondary">Try Map V2</router-link>
         </div>
       </div>
 
@@ -56,12 +56,8 @@
                           to support geocoding and location search.<br>
                           It also features <strong>user location detection</strong> 
                           and the ability to find and navigate to any place interactively."
-              :images="[
-                '/fetureImg/v1-1.png',
-                '/fetureImg/v1-2.png',
-                '/fetureImg/v1-3.png',
-              ]"
-              route="/Map"
+              :images="assetUrls.featureImagesV1"
+              route="/mapv1"
             />
           </div>
           
@@ -74,12 +70,8 @@
                           and <strong>Mapbox APIs</strong> for flexible geocoding.<br>
                           Users can <strong>save favorite locations</strong> 
                           to a personal database, with improved interface and visual enhancements."
-              :images="[
-                '/fetureImg/v2-1.png',
-                '/fetureImg/v2-2.png',
-                '/fetureImg/v2-3.png',
-              ]"
-              route="/mapV2"
+              :images="assetUrls.featureImagesV2"
+              route="/mapv2"
             />
           </div>
         </div>
@@ -93,6 +85,7 @@ import HeaderNav from '@/components/layout/HeaderNav.vue'
 import GlComponents from '@/components/Home/GlComponents.vue'
 import FetureShowCases from '@/components/Home/FetureShowCases.vue'
 import {fetchCurrentUser } from '@/services/authService.js';
+import { assetUrls } from "@/services/assetUrls";
 
 export default {
   name: "HomeView",
@@ -115,7 +108,13 @@ export default {
     } catch (error) {
       console.error("Failed to fetch user:", error);
     }
+  },
+  setup(){
+    return{
+      assetUrls,
+    }
   }
+  
 
 };
 </script>
@@ -123,8 +122,9 @@ export default {
 <style scoped>
 .home-view {
   position: relative;
-  height: 320vh;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow-x: hidden;
+
 }
 
 .content-wrapper {
@@ -142,6 +142,18 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 0;
+}
+
+@media (max-width: 768px) {
+  .gl-container {
+    /* Ensure content remains readable on mobile */
+    filter: brightness(0.7);
+  }
+  
+  /* Adjust content spacing for mobile */
+  .content-wrapper {
+    padding-top: 1rem;
+  }
 }
 
 .hero-section {
@@ -268,22 +280,75 @@ export default {
 }
 
 @media (max-width: 768px) {
+  .home-view{
+    height: auto;
+  }
   .hero-section {
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
   }
   
   .hero-section h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    line-height: 1.3;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
   
   .cta-buttons {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    gap: 0.75rem;
   }
   
   .btn {
     width: 100%;
-    max-width: 300px;
+    max-width: none;
+    padding: 0.75rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .feature-card {
+    padding: 1.25rem;
+  }
+  
+  .feature-icon {
+    font-size: 2rem;
+  }
+  
+  .version-comparison {
+    margin-top: 2rem;
+  }
+  
+  .version-comparison h2,
+  .features-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-wrapper {
+    padding: 0.75rem;
+  }
+  
+  .hero-section h1 {
+    font-size: 1.5rem;
+  }
+  
+  .feature-card {
+    padding: 1rem;
+  }
+  
+  .feature-icon {
+    font-size: 1.75rem;
   }
 }
 </style>
