@@ -31,4 +31,3 @@ VUE_APP_API_SERVER=server_for_api_call
 ```bash
 npm run build
 ```
-```
