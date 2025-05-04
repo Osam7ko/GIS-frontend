@@ -2,17 +2,19 @@
   <div class="home-view">
     <HeaderNav />
     <GlComponents class="gl-container" />
-    
+
     <div class="content-wrapper">
       <div class="hero-section">
         <h1 v-if="username">Hi {{ username }}, Welcome to Mapping Platform</h1>
-        <h1 v-else>Home Page</h1>
+        <h1 v-else>Mapping Platform</h1>
         <p class="subtitle">
           Explore powerful mapping features with intuitive interface
         </p>
         <div class="cta-buttons">
           <!-- <router-link to="/mapv1" class="btn btn-primary">Try Map V1</router-link> -->
-          <router-link to="/mapv2" class="btn btn-secondary">Try Map V2</router-link>
+          <router-link to="/mapv2" class="btn btn-secondary"
+            >Try Map V2</router-link
+          >
         </div>
       </div>
 
@@ -24,27 +26,35 @@
               <i class="fas fa-map-marked-alt"></i>
             </div>
             <h3>Interactive Maps</h3>
-            <p>Explore locations with our dynamic mapping interface</p>
+            <p>
+              Navigate locations with an intuitive and responsive map experience
+            </p>
           </div>
           <div class="feature-card">
             <div class="feature-icon">
               <i class="fas fa-route"></i>
             </div>
             <h3>Route Planning</h3>
-            <p>Plan and visualize optimal routes between locations</p>
+            <p>
+              Generate and display the most efficient paths between selected
+              destinations
+            </p>
           </div>
           <div class="feature-card">
             <div class="feature-icon">
               <i class="fas fa-bookmark"></i>
             </div>
             <h3>Saved Locations</h3>
-            <p>Save and manage your favorite places</p>
+            <p>
+              Save and manage your places, and take a screenshot of your drow in
+              the map!
+            </p>
           </div>
         </div>
       </div>
 
       <div class="version-comparison">
-        <h2>Map Version Comparison</h2>
+        <!-- <h2>Map Version Comparison</h2> -->
         <div class="feature-showcases">
           <div class="feature-card" id="Map1">
             <FetureShowCases
@@ -57,19 +67,20 @@
                           It also features <strong>user location detection</strong> 
                           and the ability to find and navigate to any place interactively."
               :images="assetUrls.featureImagesV1"
-              route="/mapv1"
             />
           </div>
-          
+
           <div class="feature-card" id="Map2">
             <FetureShowCases
               title="Map V2"
               description="The V2 map integrates <strong>Mapbox</strong> as the core GIS engine with 
-                          <strong>Leaflet</strong> controls for interaction.<br>
-                          It supports location search using both <strong>Nominatim</strong> 
-                          and <strong>Mapbox APIs</strong> for flexible geocoding.<br>
-                          Users can <strong>save favorite locations</strong> 
-                          to a personal database, with improved interface and visual enhancements."
+              <strong>Leaflet</strong> controls for interaction.<br>
+              It supports location search using both <strong>Nominatim</strong> 
+              and <strong>Mapbox APIs</strong> for flexible geocoding.<br>
+              Users can <strong>save favorite locations</strong> 
+              to a personal database, with improved interface and visual enhancements.<br>
+              Now also supports <strong>drawing shapes</strong> (polygons, polylines, markers) 
+              on the map and <strong>downloading</strong> the map view as an image snapshot."
               :images="assetUrls.featureImagesV2"
               route="/mapv2"
             />
@@ -81,10 +92,10 @@
 </template>
 
 <script>
-import HeaderNav from '@/components/layout/HeaderNav.vue'
-import GlComponents from '@/components/Home/GlComponents.vue'
-import FetureShowCases from '@/components/Home/FetureShowCases.vue'
-import {fetchCurrentUser } from '@/services/authService.js';
+import HeaderNav from "@/components/layout/HeaderNav.vue";
+import GlComponents from "@/components/Home/GlComponents.vue";
+import FetureShowCases from "@/components/Home/FetureShowCases.vue";
+import { fetchCurrentUser } from "@/services/authService.js";
 import { assetUrls } from "@/services/assetUrls";
 
 export default {
@@ -92,30 +103,28 @@ export default {
   components: {
     HeaderNav,
     GlComponents,
-    FetureShowCases
+    FetureShowCases,
   },
   data() {
     return {
-      username: ""
+      username: "",
     };
   },
   async mounted() {
     try {
       // Calling the user from BK
       const user = await fetchCurrentUser();
-      this.username = user.username; 
-      console.log("Current user:", user); 
+      this.username = user.username;
+      console.log("Current user:", user);
     } catch (error) {
       console.error("Failed to fetch user:", error);
     }
   },
-  setup(){
-    return{
+  setup() {
+    return {
       assetUrls,
-    }
-  }
-  
-
+    };
+  },
 };
 </script>
 
@@ -124,7 +133,6 @@ export default {
   position: relative;
   min-height: 100vh;
   overflow-x: hidden;
-
 }
 
 .content-wrapper {
@@ -142,6 +150,7 @@ export default {
   width: 100%;
   height: 100%;
   z-index: 0;
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
@@ -149,7 +158,7 @@ export default {
     /* Ensure content remains readable on mobile */
     filter: brightness(0.7);
   }
-  
+
   /* Adjust content spacing for mobile */
   .content-wrapper {
     padding-top: 1rem;
@@ -280,53 +289,53 @@ export default {
 }
 
 @media (max-width: 768px) {
-  .home-view{
+  .home-view {
     height: auto;
   }
   .hero-section {
     padding: 1.5rem 1rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .hero-section h1 {
     font-size: 1.8rem;
     line-height: 1.3;
   }
-  
+
   .subtitle {
     font-size: 1rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .cta-buttons {
     flex-direction: column;
     align-items: stretch;
     gap: 0.75rem;
   }
-  
+
   .btn {
     width: 100%;
     max-width: none;
     padding: 0.75rem;
   }
-  
+
   .features-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
   }
-  
+
   .feature-card {
     padding: 1.25rem;
   }
-  
+
   .feature-icon {
     font-size: 2rem;
   }
-  
+
   .version-comparison {
     margin-top: 2rem;
   }
-  
+
   .version-comparison h2,
   .features-section h2 {
     font-size: 1.5rem;
@@ -338,15 +347,15 @@ export default {
   .content-wrapper {
     padding: 0.75rem;
   }
-  
+
   .hero-section h1 {
     font-size: 1.5rem;
   }
-  
+
   .feature-card {
     padding: 1rem;
   }
-  
+
   .feature-icon {
     font-size: 1.75rem;
   }
